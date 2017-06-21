@@ -39,10 +39,10 @@ describe("Text manipulation method", function() {
   
   describe("joinInline()", function() {
     const joinInline = htt.__get__('joinInline');
-    const content = [
+    const content = { content: [
       { type: 'inline', data: 'abc ' },
       { type: 'inline', data: ' def' },
-    ];
+    ]};
     const expected = "abc  def";
 
     it('should return an object with type and data properties', function() {
@@ -66,12 +66,12 @@ describe("Text manipulation method", function() {
   
   describe("makeBlock()", function() {
     const makeBlock = htt.__get__('makeBlock');
-    const content = [
+    const content = { content: [
       { type: 'inline', data: 'abc ' },
       { type: 'inline', data: 'def' },
       { type: 'block', data: 'bbbb' },
       { type: 'inline', data: 'ghi' },
-    ];
+    ]};
     const expected = "abc def\nbbbb\nghi";
 
     it('should return an object with type and data properties', function() {
@@ -87,11 +87,11 @@ describe("Text manipulation method", function() {
     });
 
     it('should join blocks using \\n', function() {
-      const content = [
+      const content = { content: [
         { type: 'block', data: 'abc' },
         { type: 'block', data: 'def' },
         { type: 'inline', data: 'ghi' },
-      ];
+      ]};
       const result = makeBlock(content);
       assert.equal(result.data, "abc\ndef\nghi");
     });
@@ -102,30 +102,30 @@ describe("Text manipulation method", function() {
     });
 
     it('should remove duplicate space in inline blocks only', function() {
-      const content = [
+      const content = { content: [
         { type: 'inline', data: 'abc  def' },
         { type: 'block', data: 'bb  bb' },
         { type: 'inline', data: 'ghi' },
-      ];
+      ]};
       const result = makeBlock(content);
       assert.equal(result.data, "abc def\nbb  bb\nghi");
     });
 
     it('should remove duplicate space over inline blocks limits', function() {
-      const content = [
+      const content = { content: [
         { type: 'inline', data: 'abc ' },
         { type: 'inline', data: ' def' },
-      ];
+      ]};
       const result = makeBlock(content);
       assert.equal(result.data, "abc def");
     });
 
     it('should discard space-only inline text between block text', function() {
-      const content = [
+      const content = { content: [
         { type: 'block', data: 'abc' },
         { type: 'inline', data: '   ' },
         { type: 'block', data: 'def' },
-      ];
+      ]};
       const result = makeBlock(content);
       assert.equal(result.data, "abc\ndef");
     });
