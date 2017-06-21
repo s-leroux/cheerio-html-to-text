@@ -2,8 +2,6 @@ const assert = require('chai').assert;
 const cheerio = require('cheerio');
 
 
-console.log(__dirname);
-
 describe("module loading", function() {
   it('should load the module', function() {
     const module = require('../index.js');
@@ -36,6 +34,13 @@ describe("library", function() {
     });
 
     it('should handle text-only fragments', function() {
+      const html = "Hello world!";
+      const a = htt.convert(html);
+      assert.equal("Hello world!", a);
+    });
+
+    it('should replace multiple spaces by single ones', function() {
+      // XXX EXCEPTION in 'pre' elements
       const html = "Hello world!";
       const a = htt.convert(html);
       assert.equal("Hello world!", a);
