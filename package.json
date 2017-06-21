@@ -28,6 +28,7 @@
     "rewire": "^2.5.2"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.1"
+    "cheerio": "^1.0.0-rc.1",
+    "underscore": "^1.8.3"
   }
 }

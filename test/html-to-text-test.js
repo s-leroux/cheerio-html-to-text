@@ -4,6 +4,32 @@ const rewire = require('rewire');
 describe("Text manipulation method", function() {
   const htt = rewire('../lib/html-to-text.js');
   
+  describe("reflow()", function() {
+    const reflow = htt.__get__('reflow');
+    
+    it('should honnor offset and width', function() {
+                     /* 012345678|0123456789 */
+      const expected = "  abc def\n"+
+                       "  ghij\n"+
+                       "  klmn\n";
+      const text =     "abc def ghij klmn";
+
+      const result = reflow(text, { offset: 2, width: 9 });
+      assert.equal(result, expected);
+    });
+    
+    it('should handle overlength words properly', function() {
+                     /* 012345|7890123456789 */
+      const expected = "  abc\n"+
+                       "  defghij\n"+
+                       "  klmn\n";
+      const text =     "abc defghij klmn";
+
+      const result = reflow(text, { offset: 2, width: 6 });
+      assert.equal(result, expected);
+    });
+  });
+  
   describe("clearInlineSpaces()", function() {
     const clearInlineSpaces = htt.__get__('clearInlineSpaces');
     
@@ -69,10 +95,10 @@ describe("Text manipulation method", function() {
     const content = { content: [
       { type: 'inline', data: 'abc ' },
       { type: 'inline', data: 'def' },
-      { type: 'block', data: 'bbbb' },
+      { type: 'block', data: 'bbbb\n' },
       { type: 'inline', data: 'ghi' },
     ]};
-    const expected = "abc def\nbbbb\nghi";
+    const expected = "abc def\nbbbb\nghi\n";
 
     it('should return an object with type and data properties', function() {
       const result = makeBlock(content);
@@ -86,29 +112,24 @@ describe("Text manipulation method", function() {
       assert.equal(result.type, "block");
     });
 
-    it('should join blocks using \\n', function() {
-      const content = { content: [
-        { type: 'block', data: 'abc' },
-        { type: 'block', data: 'def' },
-        { type: 'inline', data: 'ghi' },
-      ]};
-      const result = makeBlock(content);
-      assert.equal(result.data, "abc\ndef\nghi");
-    });
-
     it('should catenate all inline/block text fragments', function() {
       const result = makeBlock(content);
       assert.equal(result.data, expected);
     });
 
+    it('should end each block with a \\n', function() {
+      const result = makeBlock(content);
+      assert.equal(result.data.slice(-1), "\n");
+    });
+
     it('should remove duplicate space in inline blocks only', function() {
       const content = { content: [
         { type: 'inline', data: 'abc  def' },
-        { type: 'block', data: 'bb  bb' },
+        { type: 'block', data: 'bb  bb\n' },
         { type: 'inline', data: 'ghi' },
       ]};
       const result = makeBlock(content);
-      assert.equal(result.data, "abc def\nbb  bb\nghi");
+      assert.equal(result.data, "abc def\nbb  bb\nghi\n");
     });
 
     it('should remove duplicate space over inline blocks limits', function() {
@@ -117,17 +138,17 @@ describe("Text manipulation method", function() {
         { type: 'inline', data: ' def' },
       ]};
       const result = makeBlock(content);
-      assert.equal(result.data, "abc def");
+      assert.equal(result.data, "abc def\n");
     });
 
     it('should discard space-only inline text between block text', function() {
       const content = { content: [
-        { type: 'block', data: 'abc' },
+        { type: 'block', data: 'abc\n' },
         { type: 'inline', data: '   ' },
-        { type: 'block', data: 'def' },
+        { type: 'block', data: 'def\n' },
       ]};
       const result = makeBlock(content);
-      assert.equal(result.data, "abc\ndef");
+      assert.equal(result.data, "abc\ndef\n");
     });
 
   });

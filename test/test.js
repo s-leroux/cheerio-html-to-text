@@ -30,32 +30,32 @@ describe("library", function() {
     it('should properly join inline elements', function() {
       const html = "<span>Hello <i>world</i><strong>!</strong></span>";
       const a = htt.convert(html);
-      assert.equal(a, "Hello world!");
+      assert.equal(a, "Hello world!\n");
     });
 
     it('should handle text-only fragments', function() {
       const html = "Hello world!";
       const a = htt.convert(html);
-      assert.equal(a, "Hello world!");
+      assert.equal(a, "Hello world!\n");
     });
 
     it('should replace multiple spaces by single ones', function() {
       // XXX EXCEPTION in 'pre' elements
       const html = "Hello world!";
       const a = htt.convert(html);
-      assert.equal(a, "Hello world!");
+      assert.equal(a, "Hello world!\n");
     });
 
     it('should prefix paragraphes with extra \\n', function() {
       const html = "<p>Hello</p><p>world!</p>";
       const a = htt.convert(html);
-      assert.equal(a, "\nHello\n\nworld!");
+      assert.equal(a, "\nHello\n\nworld!\n");
     });
 
     it('should catenate phrase elements in paragraph', function() {
       const html = "<p><span>Hello </span><b>world<em>!</em></b></p>";
       const a = htt.convert(html);
-      assert.equal(a, "\nHello world!");
+      assert.equal(a, "\nHello world!\n");
     });
 
   });
