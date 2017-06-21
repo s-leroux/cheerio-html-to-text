@@ -69,7 +69,7 @@ describe("Text manipulation method", function() {
     const content = [
       { type: 'inline', data: 'abc ' },
       { type: 'inline', data: 'def' },
-      { type: 'block', data: '\nbbbb\n' },
+      { type: 'block', data: 'bbbb' },
       { type: 'inline', data: 'ghi' },
     ];
     const expected = "abc def\nbbbb\nghi";
@@ -86,6 +86,16 @@ describe("Text manipulation method", function() {
       assert.equal(result.type, "block");
     });
 
+    it('should join blocks using \\n', function() {
+      const content = [
+        { type: 'block', data: 'abc' },
+        { type: 'block', data: 'def' },
+        { type: 'inline', data: 'ghi' },
+      ];
+      const result = makeBlock(content);
+      assert.equal(result.data, "abc\ndef\nghi");
+    });
+
     it('should catenate all inline/block text fragments', function() {
       const result = makeBlock(content);
       assert.equal(result.data, expected);
@@ -94,7 +104,7 @@ describe("Text manipulation method", function() {
     it('should remove duplicate space in inline blocks only', function() {
       const content = [
         { type: 'inline', data: 'abc  def' },
-        { type: 'block', data: '\nbb  bb\n' },
+        { type: 'block', data: 'bb  bb' },
         { type: 'inline', data: 'ghi' },
       ];
       const result = makeBlock(content);
@@ -108,6 +118,16 @@ describe("Text manipulation method", function() {
       ];
       const result = makeBlock(content);
       assert.equal(result.data, "abc def");
+    });
+
+    it('should discard space-only inline text between block text', function() {
+      const content = [
+        { type: 'block', data: 'abc' },
+        { type: 'inline', data: '   ' },
+        { type: 'block', data: 'def' },
+      ];
+      const result = makeBlock(content);
+      assert.equal(result.data, "abc\ndef");
     });
 
   });

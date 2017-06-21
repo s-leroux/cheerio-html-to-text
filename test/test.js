@@ -46,10 +46,16 @@ describe("library", function() {
       assert.equal(a, "Hello world!");
     });
 
-    it('should wrap paragraphes between \\n', function() {
+    it('should prefix paragraphes with extra \\n', function() {
       const html = "<p>Hello</p><p>world!</p>";
       const a = htt.convert(html);
-      assert.equal(a, "\nHello\n\nworld!\n");
+      assert.equal(a, "\nHello\n\nworld!");
+    });
+
+    it('should catenate phrase elements in paragraph', function() {
+      const html = "<p><span>Hello </span><b>world<em>!</em></b></p>";
+      const a = htt.convert(html);
+      assert.equal(a, "\nHello world!");
     });
 
   });
