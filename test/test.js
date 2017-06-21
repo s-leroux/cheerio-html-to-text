@@ -13,7 +13,7 @@ describe("library", function() {
   const htt = require('../index.js');
 
   describe("convert()", function() {
-    const html = "<html><body><p>hello</p></body></html>";
+    const html = "<html><body><div>hello</div></body></html>";
 
     it('should return a string', function() {
       const a = htt.convert(html);
@@ -30,20 +30,26 @@ describe("library", function() {
     it('should properly join inline elements', function() {
       const html = "<span>Hello <i>world</i><strong>!</strong></span>";
       const a = htt.convert(html);
-      assert.equal("Hello world!", a);
+      assert.equal(a, "Hello world!");
     });
 
     it('should handle text-only fragments', function() {
       const html = "Hello world!";
       const a = htt.convert(html);
-      assert.equal("Hello world!", a);
+      assert.equal(a, "Hello world!");
     });
 
     it('should replace multiple spaces by single ones', function() {
       // XXX EXCEPTION in 'pre' elements
       const html = "Hello world!";
       const a = htt.convert(html);
-      assert.equal("Hello world!", a);
+      assert.equal(a, "Hello world!");
+    });
+
+    it('should wrap paragraphes between \\n', function() {
+      const html = "<p>Hello</p><p>world!</p>";
+      const a = htt.convert(html);
+      assert.equal(a, "\nHello\n\nworld!\n");
     });
 
   });
