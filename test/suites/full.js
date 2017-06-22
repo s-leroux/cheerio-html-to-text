@@ -7,7 +7,7 @@ const document = `
   <body>
     <h1>My mail</h1>
     
-    <div><table><tr>
+    <div><table><tr><th><h2>Introduction</h2></th></tr><tr>
       <td>
          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas odio 
          quam, accumsan sed accumsan at, ultricies ut enim. Nam aliquam semper
@@ -28,13 +28,7 @@ const document = `
          massa eget ante tincidunt tempor. Nam euismod massa at nibh mattis,
          in efficitur purus tempor. Nulla in tellus at nisi dapibus interdum 
          at gravida mi. Nam ornare imperdiet malesuada. Nunc et tincidunt
-         quam, faucibus sollicitudin turpis. Sed metus tortor, condimentum 
-         in tortor sit amet, blandit vulputate velit. Nulla viverra diam at
-         sem laoreet, at lobortis est scelerisque. Pellentesque habitant 
-         morbi tristique senectus et netus et malesuada fames ac turpis 
-         egestas. Vestibulum bibendum dolor quis erat luctus tempus. Nulla 
-         elementum leo quis diam interdum accumsan. Fusce ultricies aliquam 
-         imperdiet.
+         quam, faucibus sollicitudin turpis.
          </p>    
          Vivamus condimentum euismod gravida. Mauris tempor felis mollis 
          tortor interdum, in viverra massa finibus. Praesent gravida malesuada

@@ -10,8 +10,8 @@ const html = rewire('../../lib/html.js');
 const text = require('../../lib/text.js');
 
 describe("html method", function() {
-  describe("h1()", function() {
-    const filter = html.__get__("h1");
+  describe("underline()", function() {
+    const filter = html.__get__("underline")('=');
     
     describe("", function() {
       const input = text.stringToBlock("Hello", { width: 80, prefix: "" });
