@@ -7,14 +7,14 @@ describe("Text manipulation method", function() {
   describe("reflow()", function() {
     const reflow = htt.__get__('reflow');
     
-    it('should honnor offset and width', function() {
+    it('should honnor prefix and width', function() {
                      /* 012345678|0123456789 */
       const expected = "  abc def\n"+
                        "  ghij\n"+
                        "  klmn\n";
       const text =     "abc def ghij klmn";
 
-      const result = reflow(text, { offset: 2, width: 9 });
+      const result = reflow(text, { prefix: "  ", width: 9 });
       assert.equal(result, expected);
     });
     
@@ -25,7 +25,7 @@ describe("Text manipulation method", function() {
                        "  klmn\n";
       const text =     "abc defghij klmn";
 
-      const result = reflow(text, { offset: 2, width: 6 });
+      const result = reflow(text, { prefix: "  ", width: 6 });
       assert.equal(result, expected);
     });
   });
