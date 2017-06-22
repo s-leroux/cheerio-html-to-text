@@ -9,9 +9,9 @@ const document = `
     
     <div><table><tr><th><h2>Introduction</h2></th></tr><tr>
       <td>
-         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas odio 
+         Lorem <a href="http://www.google.com">ipsum dolor</a> sit amet, consectetur adipiscing elit. Maecenas odio 
          quam, accumsan sed accumsan at, ultricies ut enim. Nam aliquam semper
-         dolor quis rutrum. Curabitur ut tincidunt arcu. Vivamus porta mattis
+         dolor <a>quis</a> rutrum. Curabitur ut tincidunt arcu. Vivamus porta mattis
          commodo. Proin venenatis a ex at dictum. In erat odio, sagittis vitae
          aliquam ac, semper nec turpis. Suspendisse sed volutpat nisi, ut cursus
          diam. Maecenas cursus urna ac mollis pharetra. Morbi aliquam tempus metus,
