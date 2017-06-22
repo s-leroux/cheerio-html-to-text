@@ -1,10 +1,50 @@
-const assert = require('chai').assert;
-const cheerio = require('cheerio');
+const chai = require('chai');
+chai.use(require('chai-string'));
+const assert = chai.assert;
+
+const util = require('util');
 const rewire = require('rewire');
 
 const text = rewire('../../lib/text.js');
 
 describe("text method", function() {
+  describe("makeLine()", function() {
+    it('should return a string ending with \\n', function() {
+      const result = text.makeLine("*");
+      assert.isString(result);
+      assert.endsWith(result, '\n');
+    });
+
+    it('should honnor width while creating lines', function() {
+      for(let prefix of [undefined, "", " ", "   "]) {
+        for(let width of [0, 1, 10, 100]) {
+          const result = text.makeLine("*", width, prefix);
+          assert.equal(result.length-1, width);
+        }
+      }
+    });
+
+    it('should not overflow when repeating multiple characters', function() {
+      for(let prefix of [undefined, "", " ", "   "]) {
+        for(let width of [0, 1, 10, 100]) {
+          const result = text.makeLine("012", width, prefix);
+          assert.equal(result.length-1, width);
+        }
+      }
+    });
+
+
+    it('should honnor prefix', function() {
+      for(let prefix of ["", " ", "   "]) {
+        for(let width of [10, 100]) {
+          const result = text.makeLine("*", width, prefix);
+          assert.startsWith(result, prefix);
+        }
+      }
+    });
+
+  });
+
   describe("makeInlineText()", function() {
     it('should create an inline text object', function() {
       const result = text.makeInlineText();

@@ -24,6 +24,7 @@
   "homepage": "https://github.com/s-leroux/cheerio-html-to-text#readme",
   "devDependencies": {
     "chai": "^4.0.2",
+    "chai-string": "^1.4.0",
     "mocha": "^3.4.2",
     "rewire": "^2.5.2"
   },
