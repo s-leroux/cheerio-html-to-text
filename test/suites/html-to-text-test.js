@@ -58,6 +58,12 @@ describe("library", function() {
       assert.equal(a, "\nHello world!\n");
     });
 
+    it('should wrap paragraphes', function() {
+      const html = "<p>Hello 0123456789 0123456789 0123456789</p>";
+      const a = htt.convert(html, {width: 10});
+      assert.equal(a, "\nHello\n0123456789\n0123456789\n0123456789\n");
+    });
+
   });
 
 });

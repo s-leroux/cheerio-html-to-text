@@ -40,7 +40,7 @@ describe("text method", function() {
       assert.deepEqual(result.data, expected);
     });
         
-    it('should end each line with a \n', function() {
+    it('should end each line with a \\n', function() {
       const input =       "abc def ghij klmn";
       const result = text.stringToBlock(input, { prefix: "  ", width: 9 });
 
@@ -59,6 +59,29 @@ describe("text method", function() {
       const result = text.stringToBlock(input, { prefix: "  ", width: 6 });
       assert.deepEqual(result.data, expected);
     });
+        
+    it('should ignore extra spaces at the start of the text', function() {
+      let input = "abc def ghij klmn";
+      const reference = text.stringToBlock(input, { prefix: "  ", width: 9 });
+
+      for(let i = 0; i < 3; ++i) {
+        input = " "+input;
+        const result = text.stringToBlock(input, { prefix: "  ", width: 9 });
+        assert.deepEqual(result, reference);
+      }
+    });
+        
+    it('should ignore extra spaces at the end of the text', function() {
+      let input = "abc def ghij klmn";
+      const reference = text.stringToBlock(input, { prefix: "  ", width: 9 });
+
+      for(let i = 0; i < 3; ++i) {
+        input = input+" ";
+        const result = text.stringToBlock(input, { prefix: "  ", width: 9 });
+        assert.deepEqual(result, reference);
+      }
+    });
+
   });
 
   describe("nodeToInlineText()", function() {
