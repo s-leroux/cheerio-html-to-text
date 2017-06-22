@@ -20,7 +20,7 @@ const document = `
          maximus. Cras tincidunt dignissim mi. Fusce vel vulputate ante,
          et lobortis magna. Morbi ut tincidunt tellus, quis condimentum magna.
          <p>
-         Integer lorem enim, aliquet et maximus id, dignissim quis augue. 
+         Integer <a href="http://www.google.com">http://www.google.com</a> enim, aliquet et maximus id, dignissim quis augue. 
          Mauris elementum semper eros, eu ullamcorper leo porttitor et. Sed 
          nulla libero, gravida non lectus id, tempor efficitur elit. Proin
          mollis ipsum non metus elementum, sed porta felis pretium. Mauris 

@@ -52,14 +52,15 @@ describe("html method", function() {
     });    
     
     describe("when href is equal to text", function() {
-      const href = "http://xxx";
-      const input = text.makeInlineText(href);
-      const element = { element: { attribs: { href:href }}};
-      
-      const result = filter(text.clone(input), element);
-
       it('should not change the text fragment', function() {
-        assert.deepEqual(result, input);
+        const href = "http://xxx";
+        for(let t of [href, " "+href, href+" "]) {
+          const input = text.makeInlineText(t);
+          const element = { element: { attribs: { href:href }}};
+          const result = filter(text.clone(input), element);
+
+          assert.deepEqual(result, input);
+        }
       });
     });    
     
