@@ -30,21 +30,29 @@ describe("text method", function() {
     it('should honnor prefix and width', function() {
                       
       const expected =[ /* 012345678|0123456789 */
-                          "  abc def",
-                          "  ghij",
-                          "  klmn",
+                          "  abc def\n",
+                          "  ghij\n",
+                          "  klmn\n",
                       ];
       const input =       "abc def ghij klmn";
 
       const result = text.stringToBlock(input, { prefix: "  ", width: 9 });
       assert.deepEqual(result.data, expected);
     });
+        
+    it('should end each line with a \n', function() {
+      const input =       "abc def ghij klmn";
+      const result = text.stringToBlock(input, { prefix: "  ", width: 9 });
+
+      for(let line of result.data)
+        assert.match(line, /\n$/);
+    });
     
     it('should handle overlength words properly', function() {
       const expected =[ /* 012345|7890123456789 */
-                          "  abc",
-                          "  defghij",
-                          "  klmn",
+                          "  abc\n",
+                          "  defghij\n",
+                          "  klmn\n",
                       ];
       const input =       "abc defghij klmn";
 
@@ -79,12 +87,12 @@ describe("text method", function() {
     const node = { content: [
       { type: 'inline', data: ['abc '] },
       { type: 'inline', data: ['def'] },
-      { type: 'block', data: ['bbbb'] },
+      { type: 'block', data: ['bbbb\n'] },
       { type: 'inline', data: ['ghi'] },
     ]};
-    const expected = [ "abc def",
-                       "bbbb",
-                       "ghi" ];
+    const expected = [ "abc def\n",
+                       "bbbb\n",
+                       "ghi\n" ];
 
     it('should return an object with type and data properties', function() {
       const result = text.nodeToTextBlock(node);
@@ -107,11 +115,11 @@ describe("text method", function() {
     it('should remove duplicate space in inline blocks only', function() {
       const node = { content: [
         { type: 'inline', data: ['abc  def'] },
-        { type: 'block', data: ['bb  bb'] },
+        { type: 'block', data: ['bb  bb\n'] },
         { type: 'inline', data: ['ghi'] },
       ]};
       const result = text.nodeToTextBlock(node);
-      assert.deepEqual(result.data, ["abc def","bb  bb","ghi"]);
+      assert.deepEqual(result.data, ["abc def\n","bb  bb\n","ghi\n"]);
     });
 
     it('should remove duplicate space over inline blocks limits', function() {
@@ -120,17 +128,17 @@ describe("text method", function() {
         { type: 'inline', data: [' def'] },
       ]};
       const result = text.nodeToTextBlock(node);
-      assert.deepEqual(result.data, ["abc def"]);
+      assert.deepEqual(result.data, ["abc def\n"]);
     });
 
     it('should discard space-only inline text between block text', function() {
       const node = { content: [
-        { type: 'block', data: ['abc'] },
+        { type: 'block', data: ['abc\n'] },
         { type: 'inline', data: ['   '] },
-        { type: 'block', data: ['def'] },
+        { type: 'block', data: ['def\n'] },
       ]};
       const result = text.nodeToTextBlock(node);
-      assert.deepEqual(result.data, ["abc","def"]);
+      assert.deepEqual(result.data, ["abc\n","def\n"]);
     });
     
       
