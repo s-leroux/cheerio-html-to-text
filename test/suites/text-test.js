@@ -2,7 +2,7 @@ const assert = require('chai').assert;
 const cheerio = require('cheerio');
 const rewire = require('rewire');
 
-const text = rewire('../lib/text.js');
+const text = rewire('../../lib/text.js');
 
 describe("text method", function() {
   describe("makeInlineText()", function() {
