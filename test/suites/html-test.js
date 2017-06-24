@@ -9,6 +9,20 @@ const rewire = require('rewire');
 const html = rewire('../../lib/html.js');
 const text = require('../../lib/text.js');
 
+describe("utility method", function() {
+  describe("wrap()", function() {
+    const wrap = html.__get__("wrap");
+    const sum = (x,y) => x + y;
+    const inc = (x) => x+1;
+    const dbl = (x) => x*2;
+    
+    it('should compose function calls', function() {
+      assert.equal(wrap(dbl, inc)(sum)(3,4), 16);
+      assert.equal(wrap(inc, dbl)(sum)(3,4), 15);
+    });
+  });
+});
+
 describe("html method", function() {
   describe("underline()", function() {
     const filter = html.__get__("underline")('=');
