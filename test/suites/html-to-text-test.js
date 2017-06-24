@@ -116,6 +116,29 @@ describe("library", function() {
       });    
     });
 
+    describe("br", function() {
+      const html = "<p>Hello<br>world</p>";
+      const a = htt.convert(html, {width: 80});
+      console.log(a);
+    
+      it('should break phrase content', function() {
+        assert.equal(a, "\nHello\nworld\n");
+      });      
+    });
+
+    describe("hr", function() {
+      const html = "<blockquote>Hello<hr>world</blockquote>";
+      const a = htt.convert(html, {width: 80});
+      console.log(a);
+      const data = a.split('\n');
+    
+      it('should add a full-width separator', function() {
+        assert.equal(data[1], "    Hello");
+        assert.equal(data[2], "-".repeat(80));
+        assert.equal(data[3], "    world");
+      });      
+    });
+
     describe("unknown elements", function() {
       const html = "<p>Hello <xxx>great</xxx> world</p>";
       const a = htt.convert(html, {width: 80});
