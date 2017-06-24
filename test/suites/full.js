@@ -19,6 +19,11 @@ const document = `
          iaculis eget nibh. Sed auctor mattis hendrerit. Cras consequat eu urna egestas
          maximus. Cras tincidunt dignissim mi. Fusce vel vulputate ante,
          et lobortis magna. Morbi ut tincidunt tellus, quis condimentum magna.
+         <blockquote>
+         Vivamus condimentum euismod gravida. Mauris tempor felis mollis 
+         tortor interdum, in viverra massa finibus. Praesent gravida malesuada
+         sapien, a efficitur ante ultricies ornare.
+         </blockquote>
          <p>
          Integer <a href="http://www.google.com">http://www.google.com</a> enim, aliquet et maximus id, dignissim quis augue. 
          Mauris elementum semper eros, eu ullamcorper leo porttitor et. Sed 
@@ -33,6 +38,14 @@ const document = `
          Vivamus condimentum euismod gravida. Mauris tempor felis mollis 
          tortor interdum, in viverra massa finibus. Praesent gravida malesuada
          sapien, a efficitur ante ultricies ornare.
+         <ul>
+          <li>Vivamus condimentum euismod gravida. Mauris tempor felis mollis 
+          tortor interdum, in viverra massa finibus. Praesent gravida malesuada
+          sapien, a efficitur ante ultricies ornare.</li>
+          <li>Vivamus condimentum euismod gravida. Mauris tempor felis mollis 
+          tortor interdum, in viverra massa finibus.</li>
+          <li>Vivamus condimentum euismod gravida.</li>
+         </ul>
       </td>
     </tr></table></div>
   </body>

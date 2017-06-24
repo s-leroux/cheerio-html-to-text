@@ -64,6 +64,58 @@ describe("library", function() {
       assert.equal(a, "\nHello\n0123456789\n0123456789\n0123456789\n");
     });
 
+    describe("unordered lists", function() {
+      const html = "<ul><li>Hello</li><li>world<p>!</p></li></ul>";
+      const a = htt.convert(html, {width: 80});
+      console.log(a);
+      const data = a.split('\n');
+    
+      it('should start with an empty line', function() {
+        assert.equal(data[0], "");
+      });      
+
+      it('should be indented', function() {
+        assert.equal(data[1], "  * Hello");
+        assert.equal(data[2], "  * world");
+        assert.equal(data[3], "");
+        assert.equal(data[4], "    !");
+      });    
+
+      it('can be nested', function() {
+        const html = "<ul><li>A</li>"+
+                     "    <li>B<ul>"+
+                     "         <li>B.A</li>"+
+                     "         <li>B.B</li>"+
+                     "    </ul></li>"+
+                     "</ul>";
+        const a = htt.convert(html, {width: 80});
+        console.log(a);
+        const data = a.split('\n');
+        assert.equal(data[1], "  * A");
+        assert.equal(data[2], "  * B");
+        assert.equal(data[4], "      - B.A");
+        assert.equal(data[5], "      - B.B");
+      });    
+    });
+
+    describe("ordered lists", function() {
+      const html = "<ol><li>Hello</li><li>world<p>!</p></li></ol>";
+      const a = htt.convert(html, {width: 80});
+      console.log(a);
+      const data = a.split('\n');
+    
+      it('should start with an empty line', function() {
+        assert.equal(data[0], "");
+      });      
+
+      it('should be indented', function() {
+        assert.equal(data[1], " 1. Hello");
+        assert.equal(data[2], " 2. world");
+        assert.equal(data[3], "");
+        assert.equal(data[4], "    !");
+      });    
+    });
+    
   });
 
 });
