@@ -1,6 +1,6 @@
 {
   "name": "cheerio-html-to-text",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A Cheerio-based HTML to TEXT converter. Usefull for email and using Cheerio to avoid multiple parsing when coupled with Juice.",
   "main": "index.js",
   "scripts": {
