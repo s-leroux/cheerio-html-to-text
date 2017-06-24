@@ -115,6 +115,16 @@ describe("library", function() {
         assert.equal(data[4], "    !");
       });    
     });
+
+    describe("unknown elements", function() {
+      const html = "<p>Hello <xxx>great</xxx> world</p>";
+      const a = htt.convert(html, {width: 80});
+      console.log(a);
+    
+      it('should be ignored', function() {
+        assert.equal(a, "\nHello world\n");
+      });      
+    });
     
   });
 
