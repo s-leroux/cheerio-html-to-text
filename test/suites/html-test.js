@@ -14,9 +14,9 @@ describe("html method", function() {
     const filter = html.__get__("underline")('=');
     
     describe("", function() {
-      const input = text.stringToBlock("Hello", { width: 80, prefix: "" });
-      const result = filter(text.clone(input));
-
+      const input = text.BlockFromString("Hello");
+      const result = filter(input.clone());
+      
       it('should only add one and only one line', function() {
         assert.equal(result.data.length, input.data.length+1);
       });
@@ -34,11 +34,11 @@ describe("html method", function() {
     const filter = html.__get__("anchor");
     
     describe("when href is present", function() {
-      const input = text.makeInlineText("Hello");
+      const input = text.Inline("Hello");
       const href = "http://xxx";
       const element = { element: { attribs: { href:href }}};
       
-      const result = filter(text.clone(input), element);
+      const result = filter(input.clone(), element);
 
       it('should only add one and only one fragment', function() {
         assert.equal(result.data.length, input.data.length+1);
@@ -55,9 +55,9 @@ describe("html method", function() {
       it('should not change the text fragment', function() {
         const href = "http://xxx";
         for(let t of [href, " "+href, href+" "]) {
-          const input = text.makeInlineText(t);
+          const input = text.Inline(t);
           const element = { element: { attribs: { href:href }}};
-          const result = filter(text.clone(input), element);
+          const result = filter(input.clone(), element);
 
           assert.deepEqual(result, input);
         }
@@ -65,13 +65,10 @@ describe("html method", function() {
     });    
     
     describe("without href", function() {
-      const input = text.makeInlineText("Hello");
+      const input = text.Inline("Hello");
       const element = { element: { attribs: { }}};
       
-      const result = filter(text.clone(input), element);
-      
-      console.log("%s", util.inspect(input));
-      console.log("%s", util.inspect(result));
+      const result = filter(input.clone(), element);
 
       it('should not change the text fragment', function() {
         assert.deepEqual(result, input);
